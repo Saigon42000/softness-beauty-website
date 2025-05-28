@@ -489,12 +489,20 @@
             const input = e.target;
             let value = input.value.replace(/\D/g, '');
             
+            // If user cleared everything, start with +7
+            if (value === '') {
+                input.value = '+7 ';
+                return;
+            }
+            
             // Remove leading 7 if it's the first digit
-            if (value.startsWith('7') && value.length > 1) {
+            if (value.startsWith('7')) {
                 value = value.substring(1);
             }
             
-            // Format the number
+            // Format the number - limit to 10 digits after +7
+            value = value.substring(0, 10);
+            
             let formatted = '+7';
             if (value.length > 0) {
                 formatted += ' (' + value.substring(0, 3);
@@ -512,18 +520,28 @@
             input.value = formatted;
         });
         
-        // Handle backspace to allow proper deletion
+        // Handle backspace and focus for proper phone formatting
         document.getElementById('phone').addEventListener('keydown', function(e) {
+            const input = e.target;
+            
             if (e.key === 'Backspace') {
-                const input = e.target;
                 const cursorPos = input.selectionStart;
                 
-                // If cursor is at position 2 (after +7), prevent deletion
-                if (cursorPos <= 2) {
+                // If trying to delete +7 prefix, prevent it
+                if (cursorPos <= 3) {
                     e.preventDefault();
-                    input.value = '+7';
-                    input.setSelectionRange(2, 2);
+                    input.value = '+7 ';
+                    input.setSelectionRange(3, 3);
                 }
+            }
+        });
+        
+        // Set initial phone value and cursor position
+        document.getElementById('phone').addEventListener('focus', function(e) {
+            const input = e.target;
+            if (input.value === '' || input.value === '+7') {
+                input.value = '+7 ';
+                setTimeout(() => input.setSelectionRange(3, 3), 0);
             }
         });
 
