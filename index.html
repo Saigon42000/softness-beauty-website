@@ -5,14 +5,407 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Softness - Салон красоты</title>
-    <!-- Подключение локальных стилей -->
-    <link rel="stylesheet" href="styles.css">
+    
     <!-- Подключение шрифтов -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap">
     
     <meta name="pp-name" value="softness-beauty-website">
     <script src="https://cdn.poehali.dev/intertnal/js/pp-min-2.js"></script>
     <script src="https://cdn.poehali.dev/intertnal/js/route-min.js"></script>
+
+    <style>
+        /* ===== ОСНОВНЫЕ НАСТРОЙКИ ===== */
+
+        /* CSS переменные для цветов */
+        :root {
+            --primary-pink: #f8bbd9;
+            --soft-pink: #fde7f3;
+            --white: #ffffff;
+            --dark-gray: #2d3748;
+            --medium-gray: #718096;
+            --light-gray: #f7fafc;
+            --accent-gold: #d69e2e;
+        }
+
+        /* Сброс стандартных отступов */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Основные настройки body */
+        body {
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--white) 100%);
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Основной контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== ШАПКА САЙТА ===== */
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, #e879f9 100%);
+            color: white;
+            padding: 30px 0;
+            box-shadow: 0 4px 20px rgba(248, 187, 217, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Логотип и название */
+        .logo-section h1 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Контактная информация */
+        .contact-info {
+            text-align: right;
+        }
+
+        .phone {
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .phone:hover {
+            transform: scale(1.05);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== СЕКЦИЯ О САЛОНЕ ===== */
+
+        .about {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        /* Текст о салоне */
+        .about-text h2 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Предпросмотр услуг */
+        .services-preview h3 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        /* Сетка услуг */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Карточка услуги */
+        .service-card {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--white) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(248, 187, 217, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(248, 187, 217, 0.3);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(248, 187, 217, 0.4);
+        }
+
+        .service-card h4 {
+            font-family: "Montserrat", sans-serif;
+            color: var(--dark-gray);
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .service-card p {
+            color: var(--medium-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Иконка услуги */
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* ===== СЕКЦИЯ ЗАПИСИ ===== */
+
+        .booking {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--soft-pink) 100%);
+        }
+
+        .booking h2 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--dark-gray);
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+
+        /* Форма записи */
+        .booking-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Группа полей формы */
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.1rem;
+        }
+
+        /* Поля ввода */
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid rgba(248, 187, 217, 0.3);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 3px rgba(248, 187, 217, 0.2);
+        }
+
+        /* Кнопка отправки */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, #e879f9 100%);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Montserrat", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(248, 187, 217, 0.4);
+        }
+
+        /* ===== СООБЩЕНИЯ ===== */
+
+        /* Сообщение об ошибке телефона */
+        .phone-error {
+            display: none;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            color: #d32f2f;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #d32f2f;
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Сообщение об успехе */
+        .success-message {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 25px;
+            display: none;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* ===== АНИМАЦИИ ===== */
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== МОБИЛЬНАЯ АДАПТИВНОСТЬ ===== */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .logo-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .logo-section p {
+                font-size: 1rem;
+            }
+
+            .phone {
+                font-size: 1.3rem;
+            }
+
+            .about {
+                padding: 60px 0;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-text h2 {
+                font-size: 2rem;
+            }
+
+            .about-text p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .booking {
+                padding: 60px 0;
+            }
+
+            .booking h2 {
+                font-size: 2rem;
+            }
+
+            .booking-form {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-section h1 {
+                font-size: 2rem;
+            }
+
+            .about-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .booking h2 {
+                font-size: 1.8rem;
+            }
+
+            .service-card {
+                padding: 20px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 15px;
+                font-size: 1rem;
+            }
+
+            .submit-btn {
+                padding: 18px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -154,7 +547,199 @@
         </div>
     </section>
 
-    <!-- Подключение скриптов -->
-    <script src="script.js"></script>
+    <script>
+        // ===== ОСНОВНЫЕ НАСТРОЙКИ =====
+
+        // Установка минимальной даты (сегодня) для поля выбора даты
+        document.getElementById("date").min = new Date().toISOString().split("T")[0];
+
+        // ===== ОПИСАНИЯ УСЛУГ =====
+
+        // Объект с подробными описаниями услуг
+        const serviceDescriptions = {
+            lashes: "Наращивание ресниц различными техниками, ламинирование и окрашивание для выразительного взгляда",
+            brows: "Коррекция формы бровей, окрашивание хной или краской, ламинирование для идеальных бровей",
+            haircut: "Профессиональные мужские и женские стрижки, укладки и консультации по подбору стиля",
+            manicure: "Классический и аппаратный маникюр, покрытие гель-лаком, дизайн ногтей",
+            pedicure: "Комплексный уход за стопами, обработка ногтей, массаж и увлажнение кожи"
+        };
+
+        // ===== ФУНКЦИИ ДЛЯ РАБОТЫ С УСЛУГАМИ =====
+
+        // Функция для отображения описания выбранной услуги
+        function updateServiceDescription() {
+            const serviceSelect = document.getElementById("service");
+            const selectedService = serviceSelect.value;
+
+            // Удаляем существующее описание
+            const existingDesc = document.getElementById("serviceDescription");
+            if (existingDesc) {
+                existingDesc.remove();
+            }
+
+            // Добавляем новое описание если услуга выбрана
+            if (selectedService && serviceDescriptions[selectedService]) {
+                const descElement = document.createElement("div");
+                descElement.id = "serviceDescription";
+                descElement.style.cssText = `
+                    margin-top: 15px;
+                    padding: 20px;
+                    background: linear-gradient(135deg, var(--soft-pink) 0%, var(--white) 100%);
+                    border-radius: 10px;
+                    border-left: 4px solid var(--primary-pink);
+                    font-size: 1rem;
+                    color: var(--medium-gray);
+                    line-height: 1.6;
+                `;
+                descElement.textContent = serviceDescriptions[selectedService];
+                serviceSelect.parentNode.appendChild(descElement);
+            }
+        }
+
+        // ===== ФУНКЦИИ ДЛЯ ВАЛИДАЦИИ =====
+
+        // Функция проверки номера телефона
+        function validatePhone(phone) {
+            const digitsOnly = phone.replace(/\D/g, "");
+            return digitsOnly.length === 11 && digitsOnly.startsWith("7");
+        }
+
+        // Функция показа/скрытия ошибки телефона
+        function showPhoneError(show) {
+            const errorElement = document.getElementById("phoneError");
+            errorElement.style.display = show ? "block" : "none";
+        }
+
+        // ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
+
+        // Обработчик изменения выбора услуги
+        document.getElementById("service").addEventListener("change", updateServiceDescription);
+
+        // ===== ФОРМАТИРОВАНИЕ НОМЕРА ТЕЛЕФОНА =====
+
+        // Обработчик ввода номера телефона с форматированием
+        document.getElementById("phone").addEventListener("input", function (e) {
+            const input = e.target;
+            let value = input.value.replace(/\D/g, "");
+
+            // Если поле очищено, начинаем с +7
+            if (value === "") {
+                input.value = "+7 ";
+                return;
+            }
+
+            // Убираем первую цифру 7 если она есть
+            if (value.startsWith("7")) {
+                value = value.substring(1);
+            }
+
+            // Ограничиваем 10 цифрами после +7
+            value = value.substring(0, 10);
+
+            // Форматируем номер
+            let formatted = "+7";
+            if (value.length > 0) {
+                formatted += " (" + value.substring(0, 3);
+                if (value.length >= 3) {
+                    formatted += ") " + value.substring(3, 6);
+                    if (value.length >= 6) {
+                        formatted += "-" + value.substring(6, 8);
+                        if (value.length >= 8) {
+                            formatted += "-" + value.substring(8, 10);
+                        }
+                    }
+                }
+            }
+
+            input.value = formatted;
+        });
+
+        // Обработчик нажатий клавиш для телефона
+        document.getElementById("phone").addEventListener("keydown", function (e) {
+            const input = e.target;
+
+            if (e.key === "Backspace") {
+                const cursorPos = input.selectionStart;
+
+                // Запрещаем удалять префикс +7
+                if (cursorPos <= 3) {
+                    e.preventDefault();
+                    input.value = "+7 ";
+                    input.setSelectionRange(3, 3);
+                }
+            }
+        });
+
+        // Обработчик фокуса на поле телефона
+        document.getElementById("phone").addEventListener("focus", function (e) {
+            const input = e.target;
+            if (input.value === "" || input.value === "+7") {
+                input.value = "+7 ";
+                setTimeout(() => input.setSelectionRange(3, 3), 0);
+            }
+        });
+
+        // ===== ОБРАБОТКА ОТПРАВКИ ФОРМЫ =====
+
+        document.getElementById("bookingForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Получаем данные формы
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Проверка заполнения обязательных полей
+            if (!data.name || !data.phone || !data.service || !data.date || !data.time) {
+                alert("Пожалуйста, заполните все обязательные поля");
+                return;
+            }
+
+            // Проверка номера телефона
+            if (!validatePhone(data.phone)) {
+                showPhoneError(true);
+                document.getElementById("phone").focus();
+                return;
+            }
+
+            // Скрываем ошибку если валидация прошла
+            showPhoneError(false);
+
+            // Симуляция отправки формы
+            console.log("Заявка отправлена:", data);
+
+            // Показываем сообщение об успехе
+            document.getElementById("successMessage").style.display = "block";
+
+            // Очищаем форму
+            this.reset();
+
+            // Удаляем описание услуги
+            const existingDesc = document.getElementById("serviceDescription");
+            if (existingDesc) {
+                existingDesc.remove();
+            }
+
+            // Прокручиваем к сообщению об успехе
+            document.getElementById("successMessage").scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            // Скрываем сообщение об успехе через 5 секунд
+            setTimeout(() => {
+                document.getElementById("successMessage").style.display = "none";
+            }, 5000);
+        });
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+
+        // Плавное появление страницы при загрузке
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Сайт салона красоты Softness загружен");
+        });
+    </script>
 </body>
 </html>
